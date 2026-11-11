@@ -6,7 +6,7 @@ namespace DZ_7
     {
         private string _name;
         private string _author;
-        public Song Prev { get; set; }
+        public Song? Prev { get; set; }
 
         public Song(string name, string author)
         {
@@ -18,7 +18,7 @@ namespace DZ_7
             get { return _name; }
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Строка не может быть пустой!");
                 _name = value;
             }
@@ -29,7 +29,7 @@ namespace DZ_7
             get { return _author; }
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Строка не может быть пустой!");
                 _author = value;
             }

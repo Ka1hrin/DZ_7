@@ -9,7 +9,8 @@ namespace DZ_7
         {
             Task1();
             Task2();
-            Task3();
+            if (!Task3())
+                return;
             Task4();
             Homework1();
             Homework2();
@@ -33,7 +34,7 @@ namespace DZ_7
         {
             Console.WriteLine("Упражнение 8.2\n");
             Console.Write("Введите строку: ");
-            string str = Console.ReadLine();
+            string? str = Console.ReadLine();
             if (string.IsNullOrEmpty(str))
                 throw new ArgumentException("Строка не может быть пустой!");
 
@@ -53,14 +54,24 @@ namespace DZ_7
         }
         #endregion
 
-        private static void Task3()
+        private static bool Task3()
         {
             Console.WriteLine("Упражнение 8.3\n");
             Console.Write("Введите название файла (пример, 'File.txt'): ");
-            string file = Console.ReadLine();
-            if (string.IsNullOrEmpty(file))
+
+            string? file = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(file))
                 throw new ArgumentException("Строка не может быть пустой!");
+
+            if (!File.Exists(file))
+            {
+                Console.WriteLine("Файл не найден!");
+                return false;
+            }
+
             ReadFile(file);
+            return true;
         }
 
         #region
@@ -68,9 +79,7 @@ namespace DZ_7
         /// Метод, который читает файл и перезаписывает его
         /// </summary>
         private static void ReadFile(string file)
-        {
-            if (!File.Exists(file))
-                throw new FileNotFoundException(file);
+        { 
             string arrayFile = File.ReadAllText(file);
             string upArray = arrayFile.ToUpper();
             File.WriteAllText("NewFile.txt", upArray);
@@ -100,7 +109,7 @@ namespace DZ_7
         {
             if (obj is IFormattable)
             {
-                IFormattable formattable = obj as IFormattable;
+                IFormattable? formattable = obj as IFormattable;
                 Console.WriteLine($"{obj.GetType().Name} реализует IFormattable");
                 Console.WriteLine($"Пример работы метода интерфейса System.IFormattable: {formattable}");
             }  

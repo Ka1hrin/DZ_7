@@ -49,6 +49,8 @@ namespace DZ_7
         /// </summary>
         public void Transfer(BankAccount bankAccount, decimal money)
         {
+            if (bankAccount == this)
+                throw new ArgumentException("Вы не можете перевести деньги на этот же счет!");
             if (bankAccount == null)
                 throw new ArgumentNullException(nameof(bankAccount), "Счет не может быть пустым!");
 
